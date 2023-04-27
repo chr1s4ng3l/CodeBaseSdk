@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import com.tamayo.code_base_sdk.R
+import com.tamayo.code_base_sdk.databinding.ActivityBaseBinding
+import com.tamayo.code_base_sdk.databinding.FragmentDetailsBinding
 import com.tamayo.code_base_sdk.utils.CharactersType
 import com.tamayo.code_base_sdk.viewmodel.MainBaseViewModel
 
@@ -14,9 +16,13 @@ class BaseActivity : AppCompatActivity() {
         ViewModelProvider(this)[MainBaseViewModel::class.java]
     }
 
+    private val binding: ActivityBaseBinding by lazy {
+        ActivityBaseBinding.inflate(layoutInflater)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_base)
+        setContentView(binding.root)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             vm.appType = intent.getSerializableExtra("CHARACTER_TYPE", CharactersType::class.java)
