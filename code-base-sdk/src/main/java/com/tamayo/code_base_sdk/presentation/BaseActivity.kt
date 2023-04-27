@@ -4,6 +4,9 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupActionBarWithNavController
 import com.tamayo.code_base_sdk.R
 import com.tamayo.code_base_sdk.databinding.ActivityBaseBinding
 import com.tamayo.code_base_sdk.databinding.FragmentDetailsBinding
@@ -24,11 +27,22 @@ class BaseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        val navHost = supportFragmentManager.findFragmentById(
+            R.id.base_container) as NavHostFragment
+        setupActionBarWithNavController(navHost.navController)
+
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             vm.appType = intent.getSerializableExtra("CHARACTER_TYPE", CharactersType::class.java)
-        }else{
+        } else {
             vm.appType = intent.getSerializableExtra("CHARACTER_TYPE") as CharactersType
         }
 
+    }
+
+    //Navigate between fragment with the arrow
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = findNavController(R.id.base_container)
+        return navController.navigateUp() || super.onSupportNavigateUp()
     }
 }
