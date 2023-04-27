@@ -11,10 +11,10 @@ data class DomainCharacter(
 
 fun List<RelatedTopic>?.mapToDomain(): List<DomainCharacter> {
     return this?.map {
-        val items = it.text?.split("-")
+        val items = it.text?.split("-") ?: emptyList()
         DomainCharacter(
-            name = items?.get(0) ?: "",
-            description = items?.get(1) ?: "",
+            name = if (items.isNotEmpty()) items[0] else  "Empty name",
+            description = it.text ?: "No description",
             icon = it.icon?.uRL?.run { "${BaseService.IMAGE_BASE_URL}${this}" }
         )
     } ?: emptyList()

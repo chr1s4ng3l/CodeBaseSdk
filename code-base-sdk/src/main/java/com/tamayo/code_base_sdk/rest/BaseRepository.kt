@@ -25,7 +25,9 @@ class BaseRepositoryImpl @Inject constructor(
             if (response.isSuccessful){
                 response.body()?.let {
                     emit(UIState.SUCCESS(it.relatedTopics.mapToDomain()))
-                }
+                } ?: throw Exception("Response was null")
+            }else{
+                throw Exception(response.errorBody()?.string())
             }
 
         }catch (e: Exception){

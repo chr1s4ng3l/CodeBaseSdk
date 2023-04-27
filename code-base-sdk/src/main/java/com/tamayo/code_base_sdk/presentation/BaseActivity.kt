@@ -32,11 +32,7 @@ class BaseActivity : AppCompatActivity() {
         setupActionBarWithNavController(navHost.navController)
 
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            vm.appType = intent.getSerializableExtra("CHARACTER_TYPE", CharactersType::class.java)
-        } else {
-            vm.appType = intent.getSerializableExtra("CHARACTER_TYPE") as CharactersType
-        }
+
 
     }
 
