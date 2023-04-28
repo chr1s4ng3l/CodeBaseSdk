@@ -11,7 +11,7 @@ import com.tamayo.code_base_sdk.R
 import com.tamayo.code_base_sdk.databinding.ActivityBaseBinding
 import com.tamayo.code_base_sdk.databinding.FragmentDetailsBinding
 import com.tamayo.code_base_sdk.utils.CharactersType
-import com.tamayo.code_base_sdk.viewmodel.MainBaseViewModel
+import com.tamayo.code_base_sdk.presentation.viewmodel.MainBaseViewModel
 
 class BaseActivity : AppCompatActivity() {
 
@@ -27,12 +27,10 @@ class BaseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+
         val navHost = supportFragmentManager.findFragmentById(
             R.id.base_container) as NavHostFragment
         setupActionBarWithNavController(navHost.navController)
-
-
-
 
     }
 

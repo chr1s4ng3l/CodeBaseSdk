@@ -1,5 +1,7 @@
-package com.tamayo.code_base_sdk.viewmodel
+package com.tamayo.code_base_sdk.presentation.viewmodel
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tamayo.code_base_sdk.domain.DomainCharacter
@@ -19,13 +21,29 @@ class MainBaseViewModel @Inject constructor(
 ) : ViewModel() {
 
 
+    private val _itemSelected: MutableStateFlow<DomainCharacter?> = MutableStateFlow(null)
+    val itemSelected: StateFlow<DomainCharacter?> get() = _itemSelected
+
+   // var itemSelected: DomainCharacter? = null
     private val _characterType: MutableStateFlow<UIState<List<DomainCharacter>>> = MutableStateFlow(UIState.LOADING)
     val characterType : StateFlow<UIState<List<DomainCharacter>>> get() = _characterType
+
+
+    fun getItemSelected(item: DomainCharacter){
+        _itemSelected.value = item
+    }
 
     fun getCharacters(characterType: CharactersType) {
             viewModelScope.launch {
                 characterUseCaseClass.invoke(characterType).collect {
+                    _characterType.value = it
                 }
+        }
+    }
+
+
+    fun searchItems(text: String?){
+        text?.let {
 
         }
     }

@@ -6,15 +6,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import com.tamayo.code_base_sdk.R
-import com.tamayo.code_base_sdk.databinding.FragmentDetailsBinding
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.tamayo.code_base_sdk.databinding.FragmentItemsBinding
+import com.tamayo.code_base_sdk.presentation.adapter.AppAdapter
 import com.tamayo.code_base_sdk.utils.CharactersType
 import com.tamayo.code_base_sdk.utils.UIState
-import com.tamayo.code_base_sdk.viewmodel.MainBaseViewModel
-import kotlinx.coroutines.flow.collect
+import com.tamayo.code_base_sdk.presentation.viewmodel.MainBaseViewModel
 import kotlinx.coroutines.launch
 
 
@@ -22,6 +22,14 @@ class ItemsFragment : Fragment() {
 
     private val binding: FragmentItemsBinding by lazy {
         FragmentItemsBinding.inflate(layoutInflater)
+    }
+
+    private val appAdapter by lazy {
+        AppAdapter {
+            vm.getItemSelected(it)
+            binding.slideItems.openPane()
+
+        }
     }
 
     private val vm by lazy {
@@ -47,6 +55,22 @@ class ItemsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        binding.mainFragment.searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                TODO("Not yet implemented")
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                TODO("Not yet implemented")
+            }
+
+        })
+
+        binding.mainFragment.recyclerView.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = appAdapter
+        }
+
         getCharacterType()
 
         vm.getCharacters(appType)
@@ -67,7 +91,7 @@ class ItemsFragment : Fragment() {
                     }
 
                     is UIState.SUCCESS -> {
-                        //TODO recycle view (adapter)
+                        appAdapter.updateItems(state.data)
                     }
                 }
             }
