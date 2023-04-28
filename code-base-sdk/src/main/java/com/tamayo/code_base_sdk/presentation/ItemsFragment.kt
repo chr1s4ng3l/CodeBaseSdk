@@ -32,12 +32,12 @@ class ItemsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        appType = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) ({
+        appType = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             requireActivity().intent.getSerializableExtra(
                 "CHARACTER_TYPE",
                 CharactersType::class.java
-            )
-        })!! else {
+            )!!
+        } else {
             requireActivity().intent.getSerializableExtra("CHARACTER_TYPE") as CharactersType
         }
     }
