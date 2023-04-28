@@ -1,12 +1,16 @@
 package com.tamayo.code_base_sdk.presentation
 
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,9 +19,11 @@ import com.tamayo.code_base_sdk.presentation.adapter.AppAdapter
 import com.tamayo.code_base_sdk.utils.CharactersType
 import com.tamayo.code_base_sdk.utils.UIState
 import com.tamayo.code_base_sdk.presentation.viewmodel.MainBaseViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 
+@AndroidEntryPoint
 class ItemsFragment : Fragment() {
 
     private val binding: FragmentItemsBinding by lazy {
@@ -36,32 +42,35 @@ class ItemsFragment : Fragment() {
         ViewModelProvider(requireActivity())[MainBaseViewModel::class.java]
     }
 
-    private lateinit var appType: CharactersType
+    private lateinit var appType: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        appType = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            requireActivity().intent.getSerializableExtra(
-                "CHARACTER_TYPE",
-                CharactersType::class.java
-            )!!
-        } else {
-            requireActivity().intent.getSerializableExtra("CHARACTER_TYPE") as CharactersType
-        }
+        appType = requireActivity().intent.getStringExtra("CHARACTER_TYPE") as String
+
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding.mainFragment.searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+
             override fun onQueryTextSubmit(query: String?): Boolean {
-                TODO("Not yet implemented")
+                if (!query.isNullOrEmpty()) {
+                    vm.searchItems(query)
+                    hideKeyboard()
+                    Toast.makeText(requireContext(), "$query", Toast.LENGTH_LONG).show()
+                }
+
+                return true
             }
 
+
             override fun onQueryTextChange(newText: String?): Boolean {
-                TODO("Not yet implemented")
+
+                return true
             }
 
         })
@@ -71,9 +80,10 @@ class ItemsFragment : Fragment() {
             adapter = appAdapter
         }
 
-        getCharacterType()
 
         vm.getCharacters(appType)
+
+        getCharacterType()
 
 
         // Inflate the layout for this fragment
@@ -85,10 +95,12 @@ class ItemsFragment : Fragment() {
         lifecycleScope.launch {
             vm.characterType.collect { state ->
                 when (state) {
-                    is UIState.ERROR -> {}
+                    is UIState.ERROR -> {
+                        Log.d("TAG", "getCharacterType: Error")
+
+                }
                     is UIState.LOADING -> {
-                        //TODO progressbar
-                    }
+                        Log.d("TAG", "getCharacterType: Loading")}
 
                     is UIState.SUCCESS -> {
                         appAdapter.updateItems(state.data)
@@ -96,6 +108,11 @@ class ItemsFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun hideKeyboard() {
+        val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.mainFragment.searchView.windowToken, 0)
     }
 
 }

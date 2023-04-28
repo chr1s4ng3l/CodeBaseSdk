@@ -21,7 +21,7 @@ class CharacterUseCaseClass @Inject constructor(
      * @param charactersType The type of characters to fetch.
      * @return A [Flow] of [UIState] containing a list of [DomainCharacter].
      */
-    operator fun invoke(charactersType: CharactersType): Flow<UIState<List<DomainCharacter>>> {
+    operator fun invoke(charactersType: String): Flow<UIState<List<DomainCharacter>>> {
         return repository.getCharacters(charactersType)
 
     }

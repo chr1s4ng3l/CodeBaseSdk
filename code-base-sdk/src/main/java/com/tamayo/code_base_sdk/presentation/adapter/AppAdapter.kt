@@ -45,6 +45,7 @@ class ItemViewHolder(
 
     fun bind(item: DomainCharacter, onItemClick: (DomainCharacter) -> Unit) {
 
+        binding.tvName.text = item.name
 
     }
 

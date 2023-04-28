@@ -1,5 +1,6 @@
 package com.tamayo.code_base_sdk.presentation.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -24,7 +25,6 @@ class MainBaseViewModel @Inject constructor(
     private val _itemSelected: MutableStateFlow<DomainCharacter?> = MutableStateFlow(null)
     val itemSelected: StateFlow<DomainCharacter?> get() = _itemSelected
 
-   // var itemSelected: DomainCharacter? = null
     private val _characterType: MutableStateFlow<UIState<List<DomainCharacter>>> = MutableStateFlow(UIState.LOADING)
     val characterType : StateFlow<UIState<List<DomainCharacter>>> get() = _characterType
 
@@ -33,9 +33,10 @@ class MainBaseViewModel @Inject constructor(
         _itemSelected.value = item
     }
 
-    fun getCharacters(characterType: CharactersType) {
+    fun getCharacters(characterType: String) {
             viewModelScope.launch {
                 characterUseCaseClass.invoke(characterType).collect {
+                    Log.d("TAG", "getCharacters VM:  $it")
                     _characterType.value = it
                 }
         }

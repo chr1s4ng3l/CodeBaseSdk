@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.slidingpanelayout.widget.SlidingPaneLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.slidingpanelayout.widget.SlidingPaneLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:id="@+id/slide_items"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".presentation.ItemsFragment">
 
 
     <RelativeLayout
-        android:layout_width="300dp"
+        android:layout_width="550dp"
         android:layout_height="match_parent"
         android:gravity="start">
 
@@ -26,7 +24,8 @@
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/details_pane_fragment"
         android:name="com.tamayo.code_base_sdk.presentation.DetailsFragment"
-        android:layout_width="200dp"
+        android:layout_width="500dp"
+        android:layout_weight="1"
         android:layout_height="match_parent" />
 
 </androidx.slidingpanelayout.widget.SlidingPaneLayout>

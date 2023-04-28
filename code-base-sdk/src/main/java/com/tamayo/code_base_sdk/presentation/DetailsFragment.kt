@@ -7,6 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.tamayo.code_base_sdk.R
 import com.tamayo.code_base_sdk.databinding.FragmentDetailsBinding
+import dagger.hilt.android.AndroidEntryPoint
+
+@AndroidEntryPoint
 
 class DetailsFragment : Fragment() {
 
@@ -19,10 +22,6 @@ class DetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-
-
-
 
 
         // Inflate the layout for this fragment

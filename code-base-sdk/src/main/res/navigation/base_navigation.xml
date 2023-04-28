@@ -3,20 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/base_navigation"
-    app:startDestination="@layout/fragment_items"
-    tools:ignore="InvalidNavigation">
+    app:startDestination="@id/itemsFragment">
 
     <fragment
         android:id="@+id/itemsFragment"
         android:name="com.tamayo.code_base_sdk.presentation.ItemsFragment"
-        android:label="{appType}"
+        android:label="Characters"
         tools:layout="@layout/fragment_items">
 
-        <argument
-            android:name="appType"
-            app:argType="String"
-            >
-        </argument>
+<!--        <argument-->
+<!--            android:name="appType"-->
+<!--            app:argType="String"-->
+<!--            >-->
+<!--        </argument>-->
 
         <action
             android:id="@+id/action_home_to_details"
@@ -29,14 +28,14 @@
     <fragment
         android:id="@+id/detailsFragment"
         android:name="com.tamayo.code_base_sdk.presentation.DetailsFragment"
-        android:label="{nameId}"
+        android:label="Details"
         tools:layout="@layout/fragment_details">
 
-        <argument
-            android:name="nameId"
-            app:argType="String"
-            >
-        </argument>
+<!--        <argument-->
+<!--            android:name="nameId"-->
+<!--            app:argType="String"-->
+<!--            >-->
+<!--        </argument>-->
 
         <action
             android:id="@+id/action_detailsFragment_to_itemsFragment"

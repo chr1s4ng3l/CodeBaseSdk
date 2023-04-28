@@ -15,6 +15,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -24,13 +25,12 @@ class NetworkModule {
     fun provideMoviesService(
         okHttpClient: OkHttpClient,
         gson: Gson
-    ): BaseService =
+    ): Retrofit =
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .client(okHttpClient)
             .build()
-            .create(BaseService::class.java)
 
 
     @Provides
@@ -49,9 +49,17 @@ class NetworkModule {
             level = HttpLoggingInterceptor.Level.BODY
         }
 
+    @Singleton
+    @Provides
+    fun provideCocktailsApi(retrofit: Retrofit): BaseService =
+        retrofit.create(BaseService::class.java)
+
+
     @Provides
     fun providesGson(): Gson = Gson()
 
     @Provides
     fun providesDispatcher(): CoroutineDispatcher = Dispatchers.IO
+
+
 }
