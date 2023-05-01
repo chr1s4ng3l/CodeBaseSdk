@@ -7,7 +7,7 @@
     tools:context=".presentation.ItemsFragment">
 
 
-    <RelativeLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="550dp"
         android:layout_height="match_parent"
         android:gravity="start">
@@ -19,7 +19,7 @@
         </include>
 
 
-    </RelativeLayout>
+    </androidx.cardview.widget.CardView>
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/details_pane_fragment"

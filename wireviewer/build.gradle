@@ -44,13 +44,16 @@ dependencies {
     //SDK
     implementation project(":code-base-sdk")
 
-    // HILT -> Dependency Injection
+    /**
+     * HILT - A dependency injection library for Android that reduces the boilerplate of doing manual dependency injection in your project.
+     * Docs: https://dagger.dev/hilt/
+     */
     implementation 'com.google.dagger:hilt-android:2.45'
-    implementation 'com.google.android.material:material:1.5.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     kapt 'com.google.dagger:hilt-android-compiler:2.45'
 
 
+    implementation 'com.google.android.material:material:1.5.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     testImplementation 'junit:junit:4.13.2'

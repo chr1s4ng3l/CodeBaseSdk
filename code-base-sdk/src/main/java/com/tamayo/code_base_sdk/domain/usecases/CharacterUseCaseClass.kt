@@ -1,7 +1,7 @@
-package com.tamayo.code_base_sdk.usecases
+package com.tamayo.code_base_sdk.domain.usecases
 
 import com.tamayo.code_base_sdk.domain.DomainCharacter
-import com.tamayo.code_base_sdk.rest.BaseRepository
+import com.tamayo.code_base_sdk.data.rest.BaseRepository
 import com.tamayo.code_base_sdk.utils.CharactersType
 import com.tamayo.code_base_sdk.utils.UIState
 import kotlinx.coroutines.flow.Flow

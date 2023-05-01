@@ -55,25 +55,26 @@ class ItemsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        binding.mainFragment.searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+        binding.mainFragment.searchView.setOnQueryTextListener(object :
+            SearchView.OnQueryTextListener {
 
             override fun onQueryTextSubmit(query: String?): Boolean {
-                if (!query.isNullOrEmpty()) {
-                    vm.searchItems(query)
-                    hideKeyboard()
-                    Toast.makeText(requireContext(), "$query", Toast.LENGTH_LONG).show()
-                }
 
                 return true
             }
 
 
-            override fun onQueryTextChange(newText: String?): Boolean {
+            override fun onQueryTextChange(newText: String): Boolean {
+
+                vm.searchItems(newText)
+                searchCharacter()
 
                 return true
             }
 
         })
+
+
 
         binding.mainFragment.recyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
@@ -90,6 +91,14 @@ class ItemsFragment : Fragment() {
         return binding.root
     }
 
+    private fun searchCharacter() {
+        lifecycleScope.launch {
+            vm.textQuery.collect { query ->
+                appAdapter.performSearch(query)
+            }
+        }
+
+    }
 
     private fun getCharacterType() {
         lifecycleScope.launch {
@@ -98,9 +107,11 @@ class ItemsFragment : Fragment() {
                     is UIState.ERROR -> {
                         Log.d("TAG", "getCharacterType: Error")
 
-                }
+                    }
+
                     is UIState.LOADING -> {
-                        Log.d("TAG", "getCharacterType: Loading")}
+                        Log.d("TAG", "getCharacterType: Loading")
+                    }
 
                     is UIState.SUCCESS -> {
                         appAdapter.updateItems(state.data)

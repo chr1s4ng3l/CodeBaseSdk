@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tamayo.code_base_sdk.domain.DomainCharacter
-import com.tamayo.code_base_sdk.usecases.CharacterUseCaseClass
+import com.tamayo.code_base_sdk.domain.usecases.CharacterUseCaseClass
 import com.tamayo.code_base_sdk.utils.CharactersType
 import com.tamayo.code_base_sdk.utils.UIState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -28,6 +28,9 @@ class MainBaseViewModel @Inject constructor(
     private val _characterType: MutableStateFlow<UIState<List<DomainCharacter>>> = MutableStateFlow(UIState.LOADING)
     val characterType : StateFlow<UIState<List<DomainCharacter>>> get() = _characterType
 
+    private val _textQuery: MutableStateFlow<String> = MutableStateFlow("")
+    val textQuery : StateFlow<String> get() = _textQuery
+
 
     fun getItemSelected(item: DomainCharacter){
         _itemSelected.value = item
@@ -36,7 +39,6 @@ class MainBaseViewModel @Inject constructor(
     fun getCharacters(characterType: String) {
             viewModelScope.launch {
                 characterUseCaseClass.invoke(characterType).collect {
-                    Log.d("TAG", "getCharacters VM:  $it")
                     _characterType.value = it
                 }
         }
@@ -45,6 +47,8 @@ class MainBaseViewModel @Inject constructor(
 
     fun searchItems(text: String?){
         text?.let {
+
+            _textQuery.value = text
 
         }
     }
