@@ -26,8 +26,8 @@
 
             <ImageView
                 android:id="@+id/image_detail"
-                android:layout_width="350dp"
-                android:layout_height="350dp"
+                android:layout_width="280dp"
+                android:layout_height="280dp"
                 android:contentDescription="@string/image"
                 android:src="@android:color/background_dark"
                 app:layout_constraintBottom_toTopOf="@+id/tv_name"

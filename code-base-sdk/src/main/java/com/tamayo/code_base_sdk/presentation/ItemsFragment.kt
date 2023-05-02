@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.SearchView
 import android.widget.Toast
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,7 +31,8 @@ class ItemsFragment : Fragment() {
         FragmentItemsBinding.inflate(layoutInflater)
     }
 
-    private val appAdapter by lazy {
+    @VisibleForTesting
+    val appAdapter by lazy {
         AppAdapter {
             vm.getItemSelected(it)
             binding.slideItems.openPane()
