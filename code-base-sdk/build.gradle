@@ -120,11 +120,10 @@ dependencies {
     testImplementation 'androidx.arch.core:core-testing:2.1.0'
 
     /**
-     *
+     * Implementation dependencies for debugging and testing fragments.
      */
     debugImplementation("androidx.fragment:fragment-testing:1.5.7")
     debugImplementation "androidx.test:monitor:1.6.1"
-
 
 
 }
