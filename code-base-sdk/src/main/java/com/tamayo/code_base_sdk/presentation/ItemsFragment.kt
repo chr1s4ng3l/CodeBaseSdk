@@ -11,15 +11,18 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.SearchView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.slidingpanelayout.widget.SlidingPaneLayout
 import com.tamayo.code_base_sdk.databinding.FragmentItemsBinding
 import com.tamayo.code_base_sdk.presentation.adapter.AppAdapter
 import com.tamayo.code_base_sdk.utils.CharactersType
 import com.tamayo.code_base_sdk.utils.UIState
 import com.tamayo.code_base_sdk.presentation.viewmodel.MainBaseViewModel
+import com.tamayo.code_base_sdk.utils.DetailOnBackPressed
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -76,6 +79,7 @@ class ItemsFragment : Fragment() {
 
         })
 
+        onBackPressedCallBack()
 
 
         binding.mainFragment.recyclerView.apply {
@@ -123,9 +127,17 @@ class ItemsFragment : Fragment() {
         }
     }
 
-    private fun hideKeyboard() {
-        val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(binding.mainFragment.searchView.windowToken, 0)
+
+
+    fun onBackPressedCallBack(){
+       binding.slideItems.lockMode = SlidingPaneLayout.LOCK_MODE_LOCKED
+        DetailOnBackPressed(binding.slideItems).let {
+            requireActivity().onBackPressedDispatcher.addCallback(
+                viewLifecycleOwner,
+                it
+            )
+        }
+
     }
 
 }

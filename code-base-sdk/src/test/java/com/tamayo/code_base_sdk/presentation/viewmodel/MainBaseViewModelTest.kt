@@ -43,7 +43,7 @@ class MainBaseViewModelTest {
 
 
     @Test
-    fun `get characters when use case provides success state`() {
+    fun `get characters when use case is correct and provides loading and success state`() {
         //AAA
 
         val characterType = CharactersType.SIMPSONS.realValue
@@ -78,6 +78,63 @@ class MainBaseViewModelTest {
         assert(state[1] is UIState.SUCCESS)
         val success = (state[1] as UIState.SUCCESS).data
         assertEquals(3, success.size)
+
+
+        job.cancel()
+
+
+    }
+    @Test
+    fun `get characters when use case is empty and only provides Loading state`() {
+        //AAA
+
+        val characterType = ""
+
+        val state = mutableListOf<UIState<List<DomainCharacter>>>()
+        val job = testScope.launch {
+            testObject.characterType.collect {
+                state.add(it)
+
+            }
+
+        }
+
+        testObject.getCharacters(characterType)
+
+
+        //Then
+        assertEquals(1, state.size)
+        assert(state[0] is UIState.LOADING)
+
+
+        job.cancel()
+
+
+    }
+
+    @Test
+    fun `get characters when type is null and provides Loading and Error state`() {
+        //AAA
+
+        val state = mutableListOf<UIState<List<DomainCharacter>>>()
+        val job = testScope.launch {
+
+            testObject.characterType.collect {
+                state.add(it)
+
+            }
+
+        }
+
+        testObject.getCharacters(null)
+
+
+        //Then
+        val errorState = state[1] as UIState.ERROR
+        assertTrue(state.size == 2)
+        assert(state[0] is UIState.LOADING)
+        assert(state[1] is UIState.ERROR)
+        assertEquals("Type was null", errorState.ERROR.localizedMessage)
 
 
         job.cancel()

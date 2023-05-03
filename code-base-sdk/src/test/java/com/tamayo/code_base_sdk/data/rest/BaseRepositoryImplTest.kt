@@ -47,7 +47,7 @@ class BaseRepositoryImplTest {
 
 
     @Test
-    fun `get characters when state is Error`(){
+    fun `get characters when state is Success`(){
         val endPoint = "simpsons characters"
 
         coEvery { mockServiceApi.getCharacters(endPoint) } returns mockk{
@@ -66,6 +66,34 @@ class BaseRepositoryImplTest {
         assertEquals(2, state.size)
         assert(state[1] is UIState.SUCCESS)
 
+
+        coVerify { mockServiceApi.getCharacters(endPoint) }
+
+
+        job.cancel()
+
+
+    }
+    @Test
+    fun `get characters when endpoint is empty and state is Loading and success`(){
+        val endPoint = ""
+
+        coEvery { mockServiceApi.getCharacters(endPoint) } returns mockk{
+            every { isSuccessful } returns true
+            every { body() } returns mockDomain
+
+        }
+
+        val state = mutableListOf<UIState<List<DomainCharacter>>>()
+        val job = testScope.launch {
+            testObject.getCharacters(endPoint).collect{
+                state.add(it)
+            }
+        }
+
+        assertEquals(2, state.size)
+        assert(state[0] is UIState.LOADING)
+        assert(state[1] is UIState.SUCCESS)
 
         coVerify { mockServiceApi.getCharacters(endPoint) }
 

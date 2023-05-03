@@ -13,6 +13,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import java.lang.Exception
 import java.lang.Thread.State
 import javax.inject.Inject
 
@@ -25,27 +26,32 @@ class MainBaseViewModel @Inject constructor(
     private val _itemSelected: MutableStateFlow<DomainCharacter?> = MutableStateFlow(null)
     val itemSelected: StateFlow<DomainCharacter?> get() = _itemSelected
 
-    private val _characterType: MutableStateFlow<UIState<List<DomainCharacter>>> = MutableStateFlow(UIState.LOADING)
-    val characterType : StateFlow<UIState<List<DomainCharacter>>> get() = _characterType
+    private val _characterType: MutableStateFlow<UIState<List<DomainCharacter>>> =
+        MutableStateFlow(UIState.LOADING)
+    val characterType: StateFlow<UIState<List<DomainCharacter>>> get() = _characterType
 
     private val _textQuery: MutableStateFlow<String> = MutableStateFlow("")
-    val textQuery : StateFlow<String> get() = _textQuery
+    val textQuery: StateFlow<String> get() = _textQuery
 
 
-    fun getItemSelected(item: DomainCharacter){
+    fun getItemSelected(item: DomainCharacter) {
         _itemSelected.value = item
     }
 
-    fun getCharacters(characterType: String) {
+    fun getCharacters(characterType: String? = null) {
+        characterType?.let {
             viewModelScope.launch {
                 characterUseCaseClass.invoke(characterType).collect {
                     _characterType.value = it
                 }
+            }
+        } ?: run{
+          _characterType.value = UIState.ERROR(Exception("Type was null"))
         }
     }
 
 
-    fun searchItems(text: String?){
+    fun searchItems(text: String?) {
         text?.let {
 
             _textQuery.value = text
