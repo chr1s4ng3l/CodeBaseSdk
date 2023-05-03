@@ -1,4 +1,4 @@
-package com.tamayo.code_base_sdk.presentation
+package com.tamayo.code_base_sdk.presentation.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

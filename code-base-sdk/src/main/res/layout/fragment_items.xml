@@ -5,7 +5,7 @@
     android:id="@+id/slide_items"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.ItemsFragment">
+    tools:context=".presentation.ui.ItemsFragment">
 
 
     <androidx.cardview.widget.CardView
@@ -24,7 +24,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/details_pane_fragment"
-        android:name="com.tamayo.code_base_sdk.presentation.DetailsFragment"
+        android:name="com.tamayo.code_base_sdk.presentation.ui.DetailsFragment"
         android:layout_width="500dp"
         android:layout_weight="1"
         android:layout_height="match_parent" />

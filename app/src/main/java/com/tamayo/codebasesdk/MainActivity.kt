@@ -1,9 +1,8 @@
 package com.tamayo.codebasesdk
 
 import android.os.Bundle
-import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
-import com.tamayo.code_base_sdk.BaseSdkImpl
+import com.tamayo.code_base_sdk.utils.BaseSdkImpl
 import com.tamayo.code_base_sdk.utils.CharactersType
 import com.tamayo.codebasesdk.databinding.ActivityMainBinding
 

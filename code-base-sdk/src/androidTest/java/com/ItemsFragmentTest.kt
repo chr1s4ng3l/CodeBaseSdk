@@ -2,7 +2,7 @@ package com
 
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.lifecycle.Lifecycle
-import com.tamayo.code_base_sdk.presentation.ItemsFragment
+import com.tamayo.code_base_sdk.presentation.ui.ItemsFragment
 import junit.framework.TestCase.assertTrue
 import org.junit.Test
 

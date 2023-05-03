@@ -1,4 +1,4 @@
-package com.tamayo.code_base_sdk.presentation
+package com.tamayo.code_base_sdk.presentation.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -30,7 +30,7 @@ class DetailsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         // Call the function to get the details
         getDetails()

@@ -1,7 +1,6 @@
-package com.tamayo.code_base_sdk.presentation
+package com.tamayo.code_base_sdk.presentation.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

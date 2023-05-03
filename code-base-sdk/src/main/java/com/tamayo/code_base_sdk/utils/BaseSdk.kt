@@ -1,9 +1,8 @@
-package com.tamayo.code_base_sdk
+package com.tamayo.code_base_sdk.utils
 
 import android.content.Context
 import android.content.Intent
-import com.tamayo.code_base_sdk.presentation.BaseActivity
-import com.tamayo.code_base_sdk.utils.CharactersType
+import com.tamayo.code_base_sdk.presentation.ui.BaseActivity
 
 /**
  * Interface representing the Base SDK.
@@ -21,7 +20,7 @@ interface BaseSdk {
 /**
  * Implementation of the BaseSdk interface.
  */
-object BaseSdkImpl : BaseSdk{
+object BaseSdkImpl : BaseSdk {
 
     /**
      * Initializes the Base SDK with the given context and character type.

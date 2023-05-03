@@ -2,7 +2,7 @@ package com.tamayo.wireviewer
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.tamayo.code_base_sdk.BaseSdkImpl
+import com.tamayo.code_base_sdk.utils.BaseSdkImpl
 import com.tamayo.code_base_sdk.utils.CharactersType
 import com.tamayo.wireviewer.databinding.ActivityWireBinding
 
