@@ -20,6 +20,11 @@ To use the Simpsons Code Base SDK, you will need to create an init of the Type o
 Here's an example:
 
 ```kotlin
+//Simpsons SDK
+ implementation project(":code-base-sdk")
+
+
+```kotlin
 /**
      * Called when the activity is created, initializes the UI and the Base SDK.
      * @param savedInstanceState The saved instance state of the activity.
