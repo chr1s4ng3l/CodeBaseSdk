@@ -84,6 +84,8 @@ class MainBaseViewModel @Inject constructor(
         text?.let {
             _textQuery.value = text
 
+        }?: kotlin.run {
+            _textQuery.value = "Query was null"
         }
     }
 }

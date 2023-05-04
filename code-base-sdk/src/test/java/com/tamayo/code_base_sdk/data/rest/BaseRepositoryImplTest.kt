@@ -47,7 +47,7 @@ class BaseRepositoryImplTest {
 
 
     @Test
-    fun `get characters when state is Success`(){
+    fun `get characters when state is Success and retrieve the network call`(){
         val endPoint = "simpsons characters"
 
         coEvery { mockServiceApi.getCharacters(endPoint) } returns mockk{
@@ -75,7 +75,7 @@ class BaseRepositoryImplTest {
 
     }
     @Test
-    fun `get characters when endpoint is empty and state is Loading and success`(){
+    fun `get characters when endpoint is empty and state is Loading and success but the Body is empty`(){
         val endPoint = ""
 
         coEvery { mockServiceApi.getCharacters(endPoint) } returns mockk{
@@ -91,11 +91,39 @@ class BaseRepositoryImplTest {
             }
         }
 
+        val emptyState = state[1] as UIState.SUCCESS
         assertEquals(2, state.size)
         assert(state[0] is UIState.LOADING)
         assert(state[1] is UIState.SUCCESS)
+        assertTrue(emptyState.data.isEmpty())
+
 
         coVerify { mockServiceApi.getCharacters(endPoint) }
+
+
+        job.cancel()
+
+
+    }
+
+
+    @Test
+    fun `get characters when endpoint is null and state is Loading and Error`(){
+        val endPoint: String? = null
+
+
+        val state = mutableListOf<UIState<List<DomainCharacter>>>()
+        val job = testScope.launch {
+            testObject.getCharacters(endPoint).collect{
+                state.add(it)
+            }
+        }
+
+        val errorState = state[1] as UIState.ERROR
+        assertEquals(2, state.size)
+        assert(state[0] is UIState.LOADING)
+        assert(state[1] is UIState.ERROR)
+        assertEquals("Type was null",errorState.ERROR.localizedMessage)
 
 
         job.cancel()

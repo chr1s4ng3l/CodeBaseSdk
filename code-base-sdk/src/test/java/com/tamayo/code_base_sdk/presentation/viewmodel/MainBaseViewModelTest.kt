@@ -84,6 +84,7 @@ class MainBaseViewModelTest {
 
 
     }
+
     @Test
     fun `get characters when use case is empty and only provides Loading state`() {
         //AAA
@@ -142,5 +143,28 @@ class MainBaseViewModelTest {
 
     }
 
+
+    @Test
+    fun `search character when pass the query and display the item`() {
+        val query = "Bart"
+        testObject.searchItems(query)
+
+        val queryState = testObject.textQuery.value
+
+        assertEquals(queryState, query)
+
+    }
+
+
+    @Test
+    fun `search character when query is null`() {
+        val query: String? = null
+        testObject.searchItems(query)
+
+        val queryState = testObject.textQuery.value
+
+        assertEquals(queryState, "Query was null")
+
+    }
 
 }

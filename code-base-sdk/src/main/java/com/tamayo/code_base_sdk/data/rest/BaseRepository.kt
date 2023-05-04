@@ -22,7 +22,7 @@ interface BaseRepository {
      * @return A [Flow] of [UIState] which contains the list of [DomainCharacter] on [UIState.SUCCESS],
      * [UIState.LOADING] when request is being made and [UIState.ERROR] on error.
      */
-    fun getCharacters(charactersType: String): Flow<UIState<List<DomainCharacter>>>
+    fun getCharacters(charactersType: String? = null): Flow<UIState<List<DomainCharacter>>>
 }
 
 /**
@@ -35,24 +35,31 @@ class BaseRepositoryImpl @Inject constructor(
     private val ioDispatcher: CoroutineDispatcher
 ) : BaseRepository {
 
-    override fun getCharacters(charactersType: String): Flow<UIState<List<DomainCharacter>>> = flow {
+    override fun getCharacters(charactersType: String?): Flow<UIState<List<DomainCharacter>>> = flow {
         emit(UIState.LOADING)
         try {
-            val response = service.getCharacters(charactersType)
-            if (response.isSuccessful){
-                response.body()?.let {
-                    emit(UIState.SUCCESS(it.relatedTopics.mapToDomain()))
-                } ?: throw Exception("Response was null")
+            charactersType?.let {
+                val response = service.getCharacters(charactersType)
 
-            }else{ throw Exception(response.errorBody()?.string())
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        emit(UIState.SUCCESS(it.relatedTopics.mapToDomain()))
+                    } ?: throw Exception("Response was null")
+
+                } else {
+                    throw Exception(response.errorBody()?.string())
+                }
+
+            } ?: kotlin.run {
+                emit(UIState.ERROR(java.lang.Exception("Type was null")))
             }
-
         }catch (e: Exception){
             emit(
                 UIState.ERROR(e)
             )
 
         }
+
 
 
     }.flowOn(ioDispatcher)
