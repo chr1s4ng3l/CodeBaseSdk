@@ -19,7 +19,7 @@ Gradle 7.0 or higher
 To use the Simpsons Code Base SDK, you will need to create an init of the Type of character in your Main Activity and use its getCharacters() method to retrieve character data.
 Here's an example:
 
-```kotlin
+```grovy
 //Simpsons SDK
  implementation project(":code-base-sdk")
 
