@@ -1,4 +1,4 @@
-# **CodeBase Simpsons Sdk**
+# **CodeBase Simpsons-TheWire Sdk**
 
 ⚠️ WARNING: This is a development version and is not yet suitable for a production environment.
 
@@ -10,6 +10,21 @@ The SDK provides access to information about characters from both "The Simpsons"
 Retrieves character data from the API and returns it in a format that is easy to work with
 Handles various types of errors and provides informative error messages to help with debugging
 Provides access to data about characters from both "The Simpsons" and "The Wire"
+
+Simpsons - Phone
+![](https://github.com/chr1s4ng3l/CodeBaseSdk/blob/master/Simpsons1.png)
+![](https://github.com/chr1s4ng3l/CodeBaseSdk/blob/master/apuphone.png)
+
+Simpsons - Tablet
+![](https://github.com/chr1s4ng3l/CodeBaseSdk/blob/master/Lisatablet.png)
+
+The Wire - Phone
+![](https://github.com/chr1s4ng3l/CodeBaseSdk/blob/master/Witrehome.png)
+![](https://github.com/chr1s4ng3l/CodeBaseSdk/blob/master/wiredetails.png)
+
+The Wire - Tablet
+1[](https://github.com/chr1s4ng3l/CodeBaseSdk/blob/master/Wiretablet.png)
+
 
 # **Requirements**
 Kotlin 1.5.20 or higher
